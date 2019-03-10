@@ -1,35 +1,21 @@
 defmodule LIS do
-  def lis(arr, n) do
-    if length(arr) == 1 do
-      if List.first(arr) > n do
-        1
-      else
-        0
-      end
+
+  def lis(arr, _target) when length(arr) == 0 do
+    0
+  end
+
+  def lis(arr, target) do
+    [head | tail] = arr
+    if head > target do
+      Enum.max([LIS.lis(tail, target), 1 + LIS.lis(tail, head)])
     else
-      [head | tail] = arr
-      # IO.inspect arr , charlists: :as_lists
-      if n <= head do
-        a = combination(tail)
-          |> Enum.map(fn(x) -> lis(x, head) end)
-          |> Enum.max
-        1 + a
-      else
-        a = combination(tail)
-          |> Enum.map(fn(x) -> lis(x, n) end)
-          |> Enum.max
-        a
-      end
+      lis(tail, target)
     end
   end
 
-
-  def combination(arr) do
-    (0..(length(arr)-1))
-    |> Enum.map(fn(x) -> Enum.drop(arr, x) end)
-  end
 end
 
-arr=[10, 22, 9, 33, 21, 50, 41, 60, 80, 61, 62] # => 6
-s = LIS.lis arr, 0
+# arr=[10, 22, 9, 33, 21, 50, 41, 60, 80, 61, 62] # => 6
+arr = [1,2,30,31,4,5,6]
+s = LIS.lis arr, -100000
 IO.puts s
