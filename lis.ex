@@ -15,7 +15,6 @@ defmodule LIS do
 
 end
 
-# arr=[10, 22, 9, 33, 21, 50, 41, 60, 80, 61, 62] # => 6
 arr = [1,2,30,31,4,5,6]
 s = LIS.lis arr, -100000
 IO.puts s
