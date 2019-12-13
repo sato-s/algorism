@@ -66,8 +66,14 @@ def riddle(arr)
     end
   end
   result.reverse!
+  (0...(result.size)).each do |i|
+    ((i + 1)...(result.size)).each do |j|
+      if result[j] > result[i]
+        result[i] = result[j]
+      end
+    end
+  end
 
-  binding.pry
   return result
 end
 
