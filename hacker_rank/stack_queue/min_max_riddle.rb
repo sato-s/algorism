@@ -58,20 +58,32 @@ def riddle(arr)
     end
   end
 
-  result = []
-  (0...(arr.size)).each do |i|
-    target_range = i + 1
-    hash.each_pair do |v, range|
-      if range >= target_range
-        if result[i].nil?
-          result[i] = v
-        elsif result[i] < v
-          result[i] = v
-        end
+  # summary = {}
+  # TODO something is wrong
+  hash.each_pair do |v1, r1|
+    hash.each_pair do |v2, r2|
+      if v1 < v2 && r1 <= r2
+        hash.delete(v1)
       end
     end
   end
 
+  summary = {}
+  hash.each_pair do |k, v|
+    summary[v] = k
+  end
+
+  result = []
+  prev = nil
+  (1..(arr.size)).each do |target_range|
+    if summary[target_range]
+      result << summary[target_range]
+      prev = summary[target_range]
+    else
+      result << prev
+    end
+  end
+  binding.pry
   return result
 end
 
